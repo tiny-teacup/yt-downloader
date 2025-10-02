@@ -9,12 +9,13 @@ def download_media(url, media_type, output_path='.'):
 
     if media_type == 'video':
         ydl_opts = {
-            'format': 'best',
-            'outtmpl': f'{output_path}/%(title)s.%(ext)s'
+            'format': 'best[height<=1080]/bestvideo[height<=1080]+bestaudio/best',
+            'outtmpl': f'{output_path}/%(title)s.%(ext)s',
+            'merge_output_format': 'mp4'
         }
     elif media_type == 'audio':
         ydl_opts = {
-            'format': 'bestaudio/best',
+            'format': 'bestaudio[ext=m4a]/bestaudio/best',
             'outtmpl': f'{output_path}/%(title)s.%(ext)s',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
